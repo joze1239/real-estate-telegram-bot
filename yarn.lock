@@ -3961,11 +3961,6 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-m@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/m/-/m-1.6.0.tgz#13694b12a061cfe3c584e4241b9bf4fa35ec2b74"
-  integrity sha512-nT+XFoL4mff2zkZUeqoC9+tnD0xPFASTihY95i0xqmjdkDjor6iaaH97yh91li5UI+49Xk/kHfpBP4QCgk/hrw==
-
 macos-release@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-2.5.0.tgz#067c2c88b5f3fb3c56a375b2ec93826220fa1ff2"
