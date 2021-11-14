@@ -1,6 +1,6 @@
 export interface ApiStatusDto {
-    /**
-     * STAGE
-     */
-    environment: string;
+  /**
+   * STAGE
+   */
+  environment: string;
 }

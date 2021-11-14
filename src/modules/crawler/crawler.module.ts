@@ -3,8 +3,8 @@ import { CrawlerController } from './crawler.controller';
 import { CrawlerService } from './crawler.service';
 
 @Module({
-    providers: [CrawlerService],
-    exports: [CrawlerService],
-    controllers: [CrawlerController],
+  providers: [CrawlerService],
+  exports: [CrawlerService],
+  controllers: [CrawlerController],
 })
 export class CrawlerModule {}
