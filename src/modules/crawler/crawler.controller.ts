@@ -9,6 +9,7 @@ export class CrawlerController {
     getUrlList(): Promise<any> {
         const url =
             'https://www.nepremicnine.net/oglasi-prodaja/podravska/maribor/stanovanje/?s=16';
-        return this.crawlerService.getUrlList(url);
+        //const url = 'https://www.bolha.com/prodaja-stanovanja/maribor';
+        return this.crawlerService.getRealEstateLinks(url);
     }
 }
