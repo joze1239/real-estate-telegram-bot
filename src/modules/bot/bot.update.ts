@@ -25,8 +25,9 @@ export class BotUpdate {
   }
 
   @Command('add')
-  async add(@Ctx() ctx: TelegrafContext, @Message('text') url: string) {
+  async add(@Ctx() ctx: TelegrafContext, @Message('text') text: string) {
     const chatId = ctx.chat.id;
+    const url = text.split(' ').pop();
     await ctx.reply(`Yey, add. Chat id: ${chatId}, URL: ${url}`);
     this.botService.echo(chatId);
   }
