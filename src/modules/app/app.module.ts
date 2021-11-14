@@ -2,9 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { BotModule } from '~modules/bot/bot.module';
-import { CrawlerModule } from '~modules/crawler/crawler.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
     imports: [
@@ -13,9 +10,7 @@ import { AppService } from './app.service';
             token: process.env.TELEGRAM_BOT_TOKEN,
             include: [BotModule],
         }),
-        CrawlerModule,
+        BotModule,
     ],
-    controllers: [AppController],
-    providers: [AppService],
 })
 export class AppModule {}
