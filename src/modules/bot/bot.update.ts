@@ -1,4 +1,13 @@
-import { Command, Ctx, Hears, Help, On, Start, Update } from 'nestjs-telegraf';
+import {
+  Command,
+  Ctx,
+  Hears,
+  Help,
+  Message,
+  On,
+  Start,
+  Update,
+} from 'nestjs-telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
 import { BotService } from './bot.service';
 
@@ -16,9 +25,8 @@ export class BotUpdate {
   }
 
   @Command('add')
-  async add(@Ctx() ctx: TelegrafContext) {
+  async add(@Ctx() ctx: TelegrafContext, @Message('text') url: string) {
     const chatId = ctx.chat.id;
-    const url = JSON.stringify(ctx.message);
     await ctx.reply(`Yey, add. Chat id: ${chatId}, URL: ${url}`);
     this.botService.echo(chatId);
   }
