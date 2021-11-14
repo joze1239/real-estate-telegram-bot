@@ -15,7 +15,7 @@ export class BotUpdate {
     await ctx.reply('Send me a sticker');
   }
 
-  @Command('/add')
+  @Command('add')
   async add(@Ctx() ctx: TelegrafContext) {
     const chatId = ctx.chat.id;
     await ctx.reply(`Yey, add. Chat id: ${chatId}`);
