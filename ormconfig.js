@@ -10,14 +10,13 @@ const settings = {
   ssl: process.env.POSTGRES_SSL === 'true',
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-  entities: ['src/database/entities/*.entity.ts'],
-  migrations: ['src/database/migrations/*.ts'],
   migrationsRun: true,
-  cli: {
-    entitiesDir: 'src/database/entities',
-    migrationsDir: 'src/database/migrations',
-  },
+  entities: ['./src/**/*.entity{.ts,.js}'],
+	migrations: ['./src/database/migrations/*{.ts,.js}'],
+	cli: {
+		entitiesDir: 'src/database/entities',
+		migrationsDir: 'src/database/migrations',
+	},
 };
-
 
 module.exports = settings;
