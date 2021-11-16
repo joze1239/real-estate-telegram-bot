@@ -22,9 +22,9 @@
     "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -f ormconfig.js",
     "db:start": "docker-compose --env-file .env up",
     "db:migration:create": "yarn run typexorm:cli migration:create -n",
-		"db:migration:generate": "yarn run typeorm:cli migration:generate -n",
-		"db:migration:run": "yarn run typeorm:cli migration:run",
-		"db:migration:revert": "yarn run typeorm:cli migration:revert"
+    "db:migration:generate": "yarn run typeorm:cli migration:generate -n",
+    "db:migration:run": "yarn run typeorm:cli migration:run",
+    "db:migration:revert": "yarn run typeorm:cli migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -47,7 +47,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "telegraf": "^4.4.2",
-    "typeorm": "^0.2.40"
+    "typeorm": "^0.2.40",
+    "typeorm-transactional-cls-hooked": "^0.1.21"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
