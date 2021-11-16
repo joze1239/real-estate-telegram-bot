@@ -11,7 +11,7 @@ export function typeOrmSettings(
     ...options,
     synchronize: false, // never use synchronize
     logger: new TypeORMLogger(options.logging),
-    entities: [path.join(src, 'database', 'entities', '*.entity{.ts,.js}')],
+    entities: [path.join(src, '**', '*.entity{.ts,.js}')],
     migrations: [path.join(src, 'database', 'migrations', '*{.ts,.js}')],
     namingStrategy: new SnakeCaseNamingStrategy(),
   };

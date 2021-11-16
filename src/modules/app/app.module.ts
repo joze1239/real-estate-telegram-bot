@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { BotModule } from '~modules/bot/bot.module';
+import { SubscriptionModule } from '~modules/subscription/subscription.module';
 import { typeOrmConfigFactory, TYPEORM_CONFIG } from './typeorm.config';
 
 @Module({
@@ -19,6 +20,7 @@ import { typeOrmConfigFactory, TYPEORM_CONFIG } from './typeorm.config';
       },
       inject: [TYPEORM_CONFIG],
     }),
+    SubscriptionModule,
     BotModule,
   ],
 })

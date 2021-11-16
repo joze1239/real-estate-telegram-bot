@@ -27,9 +27,11 @@ export class BotUpdate {
   @Command('add')
   async add(@Ctx() ctx: TelegrafContext, @Message('text') text: string) {
     const chatId = ctx.chat.id;
-    const url = text.split(' ').pop();
-    await ctx.reply(`Yey, add. Chat id: ${chatId}, URL: ${url}`);
-    this.botService.echo(chatId);
+    const name = text.split(' ')[1];
+    const url = text.split(' ')[2];
+
+    // await ctx.reply(`Yey, add. Chat id: ${chatId}, URL: ${url}`);
+    // this.botService.echo(chatId);
   }
 
   @On('sticker')
