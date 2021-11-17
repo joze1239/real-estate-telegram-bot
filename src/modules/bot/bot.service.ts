@@ -16,7 +16,8 @@ export class BotService {
   }
 
   handleError(chatId: number, error: any): void {
-    this.sendMessage(chatId, `Error: ${JSON.stringify(error)}`);
+    const message = error?.message || JSON.stringify(error);
+    this.sendMessage(chatId, `Error: ${message}`);
   }
 
   async subscribe(chatId: number, name: string, url: string): Promise<void> {
