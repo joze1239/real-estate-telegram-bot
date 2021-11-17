@@ -36,6 +36,12 @@ export class BotService {
     try {
       const subscriptions =
         await this.subscriptionService.getSubscriptionsByChatId(chatId);
+
+      if (!subscriptions.length) {
+        this.sendMessage(chatId, 'You have no subscriptions!');
+        return;
+      }
+
       const message = subscriptions
         .map((s) => `[${s.name}] ${s.url}`)
         .join('\n');
