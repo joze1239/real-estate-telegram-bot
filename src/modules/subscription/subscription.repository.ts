@@ -17,16 +17,12 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
 
   async createSubscription(dto: CreateSubscriptionDto): Promise<Subscription> {
     console.log('createSubscription', dto);
-    const exist = await this.find({
+    const exist = await this.findOne({
       where: {
-        chatId: dto.chatId,
-        name: dto.name,
-        url: dto.name,
+        ...dto,
       },
       withDeleted: false,
     });
-
-    console.log('exist', exist);
 
     if (exist) {
       throw new BadRequestException(
