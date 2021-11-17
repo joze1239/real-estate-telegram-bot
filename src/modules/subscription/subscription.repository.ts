@@ -16,17 +16,17 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
   }
 
   async createSubscription(dto: CreateSubscriptionDto): Promise<Subscription> {
-    console.log('createSubscription', dto);
     const exist = await this.findOne({
       where: {
-        ...dto,
+        chatId: dto.chatId,
+        name: dto.name,
       },
       withDeleted: false,
     });
 
     if (exist) {
       throw new BadRequestException(
-        'Subscription with this name and URL already exist!',
+        'Subscription with this name already exist!',
       );
     }
 
