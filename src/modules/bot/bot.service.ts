@@ -33,6 +33,18 @@ export class BotService {
     }
   }
 
+  async unsubscribe(chatId: number, name: string): Promise<void> {
+    try {
+      await this.subscriptionService.removeSubscription({
+        chatId,
+        name,
+      });
+      this.sendMessage(chatId, `Subscription removed`);
+    } catch (error) {
+      this.handleError(chatId, error);
+    }
+  }
+
   async listSubscriptions(chatId: number): Promise<void> {
     try {
       const subscriptions =

@@ -23,6 +23,17 @@ export class BotUpdate {
     this.botService.subscribe(chatId, name, url);
   }
 
+  @Command('remove')
+  removeSubscription(
+    @Ctx() ctx: TelegrafContext,
+    @Message('text') text: string,
+  ) {
+    const chatId = ctx.chat.id;
+    const name = text.split(' ')[1];
+
+    this.botService.unsubscribe(chatId, name);
+  }
+
   @Command('list')
   listSubscription(@Ctx() ctx: TelegrafContext) {
     const chatId = ctx.chat.id;

@@ -3,6 +3,7 @@ import { EntityRepository } from 'typeorm';
 import { BaseRepository } from 'typeorm-transactional-cls-hooked';
 import Subscription from '~modules/subscription/subscription.entity';
 import { CreateSubscriptionDto } from './dto/subscription.create.dto';
+import { RemoveSubscriptionDto } from './dto/subscription.remove.dto';
 
 @EntityRepository(Subscription)
 export class SubscriptionRepository extends BaseRepository<Subscription> {
@@ -34,17 +35,19 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
     return subscription.save();
   }
 
-  async removeSubscription(chatId: number, name: string): Promise<void> {
-    const subscription = await this.find({
+  async removeSubscription(dto: RemoveSubscriptionDto): Promise<Subscription> {
+    const subscription = await this.findOne({
       where: {
-        chatId,
-        name,
+        chatId: dto.chatId,
+        name: dto.name,
       },
+      withDeleted: false,
     });
 
     if (!subscription) {
-      throw new NotFoundException('Subscription does not exist!');
+      throw new NotFoundException(`Subscription with this name doesn't exist!`);
     }
-    await this.softRemove(subscription);
+
+    return await subscription.softRemove();
   }
 }

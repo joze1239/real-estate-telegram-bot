@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { validateOrReject } from 'class-validator';
 import { CreateSubscriptionDto } from './dto/subscription.create.dto';
+import { RemoveSubscriptionDto } from './dto/subscription.remove.dto';
 import Subscription from './subscription.entity';
 import { SubscriptionRepository } from './subscription.repository';
 
@@ -23,7 +24,12 @@ export class SubscriptionService {
     );
   }
 
-  async removeSubscription(chatId: number, name: string): Promise<void> {
-    return await this.subscriptionRepository.removeSubscription(chatId, name);
+  async removeSubscription(
+    subscriptionDto: RemoveSubscriptionDto,
+  ): Promise<Subscription> {
+    await validateOrReject(subscriptionDto);
+    return await this.subscriptionRepository.removeSubscription(
+      subscriptionDto,
+    );
   }
 }
