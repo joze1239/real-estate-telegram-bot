@@ -16,27 +16,30 @@ export class BotUpdate {
   }
 
   @Command('add')
-  addSubscription(@Ctx() ctx: TelegrafContext, @Message('text') text: string) {
+  async addSubscription(
+    @Ctx() ctx: TelegrafContext,
+    @Message('text') text: string,
+  ) {
     const chatId = ctx.chat.id;
     const name = text.split(' ')[1];
     const url = text.split(' ')[2];
-    this.botService.subscribe(chatId, name, url);
+    await this.botService.subscribe(chatId, name, url);
   }
 
   @Command('remove')
-  removeSubscription(
+  async removeSubscription(
     @Ctx() ctx: TelegrafContext,
     @Message('text') text: string,
   ) {
     const chatId = ctx.chat.id;
     const name = text.split(' ')[1];
 
-    this.botService.unsubscribe(chatId, name);
+    await this.botService.unsubscribe(chatId, name);
   }
 
   @Command('list')
-  listSubscription(@Ctx() ctx: TelegrafContext) {
+  async listSubscription(@Ctx() ctx: TelegrafContext) {
     const chatId = ctx.chat.id;
-    this.botService.listSubscriptions(chatId);
+    await this.botService.listSubscriptions(chatId);
   }
 }
