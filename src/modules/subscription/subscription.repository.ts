@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { EntityRepository } from 'typeorm';
 import { BaseRepository } from 'typeorm-transactional-cls-hooked';
 import Subscription from '~modules/subscription/subscription.entity';
@@ -18,9 +18,21 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
   async createSubscription(
     subscriptionDto: CreateSubscriptionDto,
   ): Promise<Subscription> {
-    const subcription = await this.create(subscriptionDto);
+    const exist = await this.find({
+      where: {
+        ...subscriptionDto,
+      },
+      withDeleted: false,
+    });
 
-    return subcription.save();
+    if (exist) {
+      throw new BadRequestException(
+        'Subscription with this name and URL already exist!',
+      );
+    }
+
+    const subscription = await this.create(subscriptionDto);
+    return subscription.save();
   }
 
   async removeSubscription(chatId: number, name: string): Promise<void> {

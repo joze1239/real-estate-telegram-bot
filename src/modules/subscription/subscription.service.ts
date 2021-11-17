@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { validateOrReject } from 'class-validator';
 import { CreateSubscriptionDto } from './dto/subscription.create.dto';
 import Subscription from './subscription.entity';
 import { SubscriptionRepository } from './subscription.repository';
@@ -16,6 +17,7 @@ export class SubscriptionService {
   async createSubscription(
     subscriptionDto: CreateSubscriptionDto,
   ): Promise<Subscription> {
+    await validateOrReject(subscriptionDto);
     return await this.subscriptionRepository.createSubscription(
       subscriptionDto,
     );
