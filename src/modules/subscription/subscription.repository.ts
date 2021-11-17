@@ -15,15 +15,18 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
     });
   }
 
-  async createSubscription(
-    subscriptionDto: CreateSubscriptionDto,
-  ): Promise<Subscription> {
+  async createSubscription(dto: CreateSubscriptionDto): Promise<Subscription> {
+    console.log('createSubscription', dto);
     const exist = await this.find({
       where: {
-        ...subscriptionDto,
+        chatId: dto.chatId,
+        name: dto.name,
+        url: dto.name,
       },
       withDeleted: false,
     });
+
+    console.log('exist', exist);
 
     if (exist) {
       throw new BadRequestException(
@@ -31,7 +34,7 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
       );
     }
 
-    const subscription = await this.create(subscriptionDto);
+    const subscription = await this.create(dto);
     return subscription.save();
   }
 
