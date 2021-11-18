@@ -42,4 +42,11 @@ export class BotUpdate {
     const chatId = ctx.chat.id;
     await this.botService.listSubscriptions(chatId);
   }
+
+  @Command('sync')
+  async listNewRealEstates(@Ctx() ctx: TelegrafContext) {
+    const chatId = ctx.chat.id;
+
+    await this.botService.listNewRealEstates(chatId);
+  }
 }
