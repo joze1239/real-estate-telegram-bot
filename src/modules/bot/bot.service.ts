@@ -3,6 +3,7 @@ import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
 import { CreateSubscriptionDto } from '~modules/subscription/dto/subscription.create.dto';
+import { RemoveSubscriptionDto } from '~modules/subscription/dto/subscription.remove.dto';
 import { SubscriptionService } from '~modules/subscription/subscription.service';
 
 @Injectable()
@@ -23,12 +24,16 @@ export class BotService {
 
   async subscribe(chatId: number, name: string, url: string): Promise<void> {
     try {
-      const subscription = {
-        chatId,
-        name,
-        url,
-      } as CreateSubscriptionDto;
-      await this.subscriptionService.createSubscription(subscription);
+      // const dto = {
+      //   chatId,
+      //   name,
+      //   url,
+      // } as CreateSubscriptionDto;
+      let dto = new CreateSubscriptionDto();
+      dto.chatId = chatId;
+      dto.name = name;
+      dto.url = url;
+      await this.subscriptionService.createSubscription(dto);
       this.sendMessage(chatId, `Subscription added`);
     } catch (error) {
       this.handleError(chatId, error);
@@ -37,10 +42,11 @@ export class BotService {
 
   async unsubscribe(chatId: number, name: string): Promise<void> {
     try {
-      await this.subscriptionService.removeSubscription({
+      const dto = {
         chatId,
         name,
-      });
+      } as RemoveSubscriptionDto;
+      await this.subscriptionService.removeSubscription(dto);
       this.sendMessage(chatId, `Subscription removed`);
     } catch (error) {
       this.handleError(chatId, error);
