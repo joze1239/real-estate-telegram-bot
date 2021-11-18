@@ -9,6 +9,7 @@ export class CreateSubscriptionDto {
   name: string;
 
   @IsString()
+  @MinLength(5)
   @IsUrl(undefined, { message: 'URL is not valid.' })
   url: string;
 }
