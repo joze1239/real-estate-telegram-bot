@@ -83,7 +83,7 @@ export class BotService {
           subscription.url,
         );
         const messages = links.map((link) => `[${subscription.name}] ${link}`);
-        await this.sendMessages(chatId, messages);
+        await this.sendMessages(chatId, messages.slice(0, 5));
       }
     } catch (error) {
       this.handleError(chatId, error);
