@@ -7,4 +7,9 @@ export class RemoveSubscriptionDto {
   @IsString()
   @MinLength(1)
   name: string;
+
+  constructor(chatId: number, name: string) {
+    this.chatId = chatId;
+    this.name = name;
+  }
 }

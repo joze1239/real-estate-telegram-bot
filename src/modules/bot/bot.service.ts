@@ -24,16 +24,9 @@ export class BotService {
 
   async subscribe(chatId: number, name: string, url: string): Promise<void> {
     try {
-      // const dto = {
-      //   chatId,
-      //   name,
-      //   url,
-      // } as CreateSubscriptionDto;
-      let dto = new CreateSubscriptionDto();
-      dto.chatId = chatId;
-      dto.name = name;
-      dto.url = url;
+      const dto = new CreateSubscriptionDto(chatId, name, url);
       await this.subscriptionService.createSubscription(dto);
+
       this.sendMessage(chatId, `Subscription added`);
     } catch (error) {
       this.handleError(chatId, error);
@@ -42,11 +35,9 @@ export class BotService {
 
   async unsubscribe(chatId: number, name: string): Promise<void> {
     try {
-      const dto = {
-        chatId,
-        name,
-      } as RemoveSubscriptionDto;
+      const dto = new RemoveSubscriptionDto(chatId, name);
       await this.subscriptionService.removeSubscription(dto);
+
       this.sendMessage(chatId, `Subscription removed`);
     } catch (error) {
       this.handleError(chatId, error);
