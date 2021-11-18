@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
+import { CreateSubscriptionDto } from '~modules/subscription/dto/subscription.create.dto';
 import { SubscriptionService } from '~modules/subscription/subscription.service';
 
 @Injectable()
@@ -22,11 +23,12 @@ export class BotService {
 
   async subscribe(chatId: number, name: string, url: string): Promise<void> {
     try {
-      await this.subscriptionService.createSubscription({
+      const subscription = {
         chatId,
         name,
         url,
-      });
+      } as CreateSubscriptionDto;
+      await this.subscriptionService.createSubscription(subscription);
       this.sendMessage(chatId, `Subscription added`);
     } catch (error) {
       this.handleError(chatId, error);
