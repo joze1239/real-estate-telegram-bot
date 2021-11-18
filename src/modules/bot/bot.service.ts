@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
@@ -17,6 +18,14 @@ export class BotService {
 
   async sendMessage(chatId: number, message: string): Promise<void> {
     await this.bot.telegram.sendMessage(chatId, message);
+  }
+
+  async sendMessages(chatId: number, messages: string[]): Promise<void> {
+    await PromisePool.withConcurrency(10)
+      .for(messages)
+      .process(async (message) => {
+        await this.sendMessage(chatId, message);
+      });
   }
 
   async handleError(chatId: number, error: any): Promise<void> {
@@ -73,8 +82,8 @@ export class BotService {
         const links = await this.crawlerService.getRealEstateLinks(
           subscription.url,
         );
-        const message = `[${subscription.name}]\n${links.join('\n')}`;
-        await this.sendMessage(chatId, message);
+        const messages = links.map((link) => `[${subscription.name}] ${link}`);
+        await this.sendMessages(chatId, messages);
       }
     } catch (error) {
       this.handleError(chatId, error);

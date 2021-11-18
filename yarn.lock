@@ -715,6 +715,11 @@
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.3.tgz#1185726610acc37317ddab11c3c7f9066966bd20"
   integrity sha512-O3uyB/JbkAEMZaP3YqyHH7TMnex7tWyCbCI4EfJdOCoN6HIhqdJBWTM6aCCiWQ/5f5wxjgU735QAIpJbjDvmzg==
 
+"@supercharge/promise-pool@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@supercharge/promise-pool/-/promise-pool-2.0.0.tgz#bfb0b2adebf798361a98ab4e977c63dbc9cf3dca"
+  integrity sha512-j6J0MFycKPB8wv+hxnYYxi+4KIyKvkdQC3apkZ242ZOD2INWMrAW57Acyl/0RX78fj6upiSq3VssnW0Fx4H5IA==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
