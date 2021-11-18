@@ -18,7 +18,8 @@ export class SubscriptionService {
   async createSubscription(
     subscriptionDto: CreateSubscriptionDto,
   ): Promise<Subscription> {
-    await validateOrReject(subscriptionDto);
+    const validation = await validateOrReject(subscriptionDto);
+    console.log('validation', validation);
     return await this.subscriptionRepository.createSubscription(
       subscriptionDto,
     );
