@@ -1,4 +1,4 @@
-import { IsNumber, IsString, MinLength } from 'class-validator';
+import { IsNumber, IsString, IsUrl, MinLength } from 'class-validator';
 
 export class CreateSubscriptionDto {
   @IsNumber()
@@ -10,6 +10,6 @@ export class CreateSubscriptionDto {
 
   @IsString()
   @MinLength(1)
-  // @IsUrl()
+  @IsUrl()
   url: string;
 }
