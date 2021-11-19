@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
@@ -74,19 +74,21 @@ export class BotService {
     }
   }
 
-  async listNewRealEstates(chatId: number) {
+  async crawlNewPages() {
     try {
       const subscriptions =
-        await this.subscriptionService.getSubscriptionsByChatId(chatId);
+        await this.subscriptionService.getAllSubscriptions();
       for (const subscription of subscriptions) {
-        const links = await this.crawlerService.getRealEstateLinks(
-          subscription.url,
+        const pageViews = await this.subscriptionService.crawlSubscriptionPage(
+          subscription.id,
         );
-        const messages = links.map((link) => `[${subscription.name}] ${link}`);
-        await this.sendMessages(chatId, messages.slice(0, 5));
+        const messages = pageViews.map(
+          (pageView) => `[${subscription.name}] ${pageView.url}`,
+        );
+        await this.sendMessages(subscription.chatId, messages);
       }
     } catch (error) {
-      this.handleError(chatId, error);
+      Logger.error(JSON.stringify(error));
     }
   }
 }

@@ -16,6 +16,21 @@ export class SubscriptionRepository extends BaseRepository<Subscription> {
     });
   }
 
+  async getSubscriptionsById(subscriptionId: number): Promise<Subscription> {
+    const subscription = await this.findOne({
+      where: {
+        id: subscriptionId,
+      },
+      withDeleted: false,
+    });
+
+    if (!subscription) {
+      throw new NotFoundException(`Subscription with this id doesn't exist!`);
+    }
+
+    return subscription;
+  }
+
   async createSubscription(dto: CreateSubscriptionDto): Promise<Subscription> {
     const exist = await this.findOne({
       where: {

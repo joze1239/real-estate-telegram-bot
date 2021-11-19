@@ -44,9 +44,7 @@ export class BotUpdate {
   }
 
   @Command('sync')
-  async listNewRealEstates(@Ctx() ctx: TelegrafContext) {
-    const chatId = ctx.chat.id;
-
-    await this.botService.listNewRealEstates(chatId);
+  async crawlNewPages() {
+    await this.botService.crawlNewPages();
   }
 }

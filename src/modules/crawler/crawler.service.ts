@@ -7,10 +7,10 @@ import { websites } from './websites';
 export class CrawlerService {
   url: string;
 
-  public async getRealEstateLinks(url: string): Promise<string[]> {
+  public async crawlPage(url: string): Promise<string[]> {
     const website = websites.find((website) => url.includes(website.domain));
     if (!websites) {
-      throw new Error('Unknown real estate domain');
+      throw new Error('Unknown domain');
     }
 
     const links = await this.crawlUrlList(url, website.linkSelector);
