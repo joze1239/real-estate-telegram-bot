@@ -66,7 +66,9 @@ export class SubscriptionService {
     const createPageViews = urls.map(
       (url) => new CreatePageViewDto(subscription.chatId, url),
     );
-    const pageViews = this.pageViewService.createPageViews(createPageViews);
+    const pageViews = await this.pageViewService.createPageViews(
+      createPageViews,
+    );
 
     console.log('pageViews', pageViews);
 
