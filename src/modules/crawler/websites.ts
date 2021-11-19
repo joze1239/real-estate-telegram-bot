@@ -6,7 +6,7 @@ export interface Website {
 export const websites: Website[] = [
   {
     domain: 'https://www.nepremicnine.net',
-    linkSelector: '.seznam a.slika',
+    linkSelector: '.seznam .oglas_container a.slika',
   },
   {
     domain: 'https://www.bolha.com',
