@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
@@ -74,17 +75,16 @@ export class BotService {
     }
   }
 
+  @Cron(CronExpression.EVERY_MINUTE)
   async crawlNewPages() {
     try {
       const subscriptions =
         await this.subscriptionService.getAllSubscriptions();
       for (const subscription of subscriptions) {
-        const pageViews = await this.subscriptionService.crawlSubscriptionPage(
+        const newUrls = await this.subscriptionService.crawlSubscriptionPage(
           subscription.id,
         );
-        const messages = pageViews.map(
-          (pageView) => `[${subscription.name}] ${pageView.url}`,
-        );
+        const messages = newUrls.map((url) => `[${subscription.name}] ${url}`);
         await this.sendMessages(subscription.chatId, messages);
       }
     } catch (error) {

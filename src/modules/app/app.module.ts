@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { BotModule } from '~modules/bot/bot.module';
@@ -10,6 +11,7 @@ import { typeOrmConfigFactory, TYPEORM_CONFIG } from './typeorm.config';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ScheduleModule.forRoot(),
     TelegrafModule.forRoot({
       token: process.env.TELEGRAM_BOT_TOKEN,
       include: [BotModule],
