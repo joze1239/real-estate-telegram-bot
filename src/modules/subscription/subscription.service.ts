@@ -51,7 +51,6 @@ export class SubscriptionService {
       id,
     );
     const crawledUrls = await this.crawlerService.crawlPage(subscription.url);
-    console.log(crawledUrls);
 
     const currentPageViews = await this.pageViewService.getViewedPages(
       subscription.chatId,
@@ -59,7 +58,6 @@ export class SubscriptionService {
     );
     const currentUrls = currentPageViews.map((pageView) => pageView.url);
     const urls = crawledUrls.filter((url) => !currentUrls.includes(url));
-    console.log(urls);
 
     const createPageViews = urls.map(
       (url) => new CreatePageViewDto(subscription.chatId, url),
