@@ -14,7 +14,8 @@ export class CrawlerService {
     }
 
     const links = await this.crawlUrlList(url, website.linkSelector);
-    return links.map((link) => `${website.domain}${link}`);
+    const uniqueLinks = [...new Set(links)];
+    return uniqueLinks.map((link) => `${website.domain}${link}`);
   }
 
   private async crawlUrlList(
