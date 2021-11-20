@@ -4,7 +4,6 @@ import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
-import { CrawlerService } from '~modules/crawler/crawler.service';
 import { CreateSubscriptionDto } from '~modules/subscription/dto/subscription.create.dto';
 import { RemoveSubscriptionDto } from '~modules/subscription/dto/subscription.remove.dto';
 import { SubscriptionService } from '~modules/subscription/subscription.service';
@@ -14,7 +13,6 @@ export class BotService {
   constructor(
     @InjectBot() private bot: Telegraf<TelegrafContext>,
     private subscriptionService: SubscriptionService,
-    private crawlerService: CrawlerService,
   ) {}
 
   async sendMessage(chatId: number, message: string): Promise<void> {
