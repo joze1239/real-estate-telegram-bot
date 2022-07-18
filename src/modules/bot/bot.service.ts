@@ -8,6 +8,7 @@ import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
 import { CreateSubscriptionDto } from '~modules/subscription/dto/subscription.create.dto';
 import { RemoveSubscriptionDto } from '~modules/subscription/dto/subscription.remove.dto';
 import { SubscriptionService } from '~modules/subscription/subscription.service';
+import { CreateUserDto } from '~modules/user/user.create.dto';
 import { UserService } from '~modules/user/user.service';
 
 @Injectable()
@@ -42,14 +43,21 @@ export class BotService {
     url: string,
   ): Promise<void> {
     try {
-      const user = await this.userService.findOrCreate({
-        externalId: telegrafUser.id,
-        username: telegrafUser.username,
-        firstName: telegrafUser.first_name,
-        lastName: telegrafUser.last_name,
-      });
-      const dto = new CreateSubscriptionDto(chatId, user.id, name, url);
-      await this.subscriptionService.createSubscription(dto);
+      const userDto = new CreateUserDto(
+        telegrafUser.id,
+        telegrafUser.username,
+        telegrafUser.first_name,
+        telegrafUser.last_name,
+      );
+      const user = await this.userService.findOrCreate(userDto);
+
+      const subscriptionDto = new CreateSubscriptionDto(
+        chatId,
+        user.id,
+        name,
+        url,
+      );
+      await this.subscriptionService.createSubscription(subscriptionDto);
 
       await this.sendMessage(chatId, `Subscription added`);
     } catch (error) {
