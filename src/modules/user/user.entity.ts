@@ -4,7 +4,7 @@ import Subscription from '~modules/subscription/subscription.entity';
 
 @Entity()
 export default class User extends BaseEntity {
-  @Column({ type: 'integer', default: 0 })
+  @Column({ name: 'external_id', type: 'integer', default: 0 })
   externalId: number;
 
   @Column({ type: 'varchar', length: 64 })
