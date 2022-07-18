@@ -13,7 +13,8 @@ export class UserService {
     });
 
     if (!user) {
-      user = await this.userRepository.create(createUserDto);
+      user = await this.userRepository.create({ ...createUserDto });
+      user.save();
     }
 
     return user;
