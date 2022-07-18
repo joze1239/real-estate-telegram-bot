@@ -48,7 +48,7 @@ export class BotService {
         firstName: telegrafUser.first_name,
         lastName: telegrafUser.last_name,
       });
-      const dto = new CreateSubscriptionDto(chatId, user, name, url);
+      const dto = new CreateSubscriptionDto(chatId, user.id, name, url);
       await this.subscriptionService.createSubscription(dto);
 
       await this.sendMessage(chatId, `Subscription added`);

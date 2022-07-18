@@ -1,20 +1,12 @@
-import { Type } from 'class-transformer';
-import {
-  IsNumber,
-  IsString,
-  IsUrl,
-  MinLength,
-  ValidateNested,
-} from 'class-validator';
+import { IsNumber, IsString, IsUrl, MinLength } from 'class-validator';
 import User from '~modules/user/user.entity';
 
 export class CreateSubscriptionDto {
   @IsNumber()
   chatId: number;
 
-  @Type(() => User)
-  @ValidateNested()
-  user: User;
+  @IsNumber()
+  userId: User['id'];
 
   @IsString()
   @MinLength(1)
@@ -24,9 +16,9 @@ export class CreateSubscriptionDto {
   @IsUrl(undefined, { message: 'URL is not valid.' })
   url: string;
 
-  constructor(chatId: number, user: User, name: string, url: string) {
+  constructor(chatId: number, userId: number, name: string, url: string) {
     this.chatId = chatId;
-    this.user = user;
+    this.userId = userId;
     this.name = name;
     this.url = url;
   }
