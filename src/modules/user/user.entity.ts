@@ -10,10 +10,10 @@ export default class User extends BaseEntity {
   @Column({ type: 'varchar', length: 64 })
   username: string;
 
-  @Column({ type: 'varchar', length: 64 })
+  @Column({ name: 'first_name', type: 'varchar', length: 64 })
   firstName: string;
 
-  @Column({ type: 'varchar', length: 64 })
+  @Column({ name: 'last_name', type: 'varchar', length: 64 })
   lastName: string;
 
   @OneToMany(() => Subscription, (subscription) => subscription.id)
