@@ -4,16 +4,16 @@ import Subscription from '~modules/subscription/subscription.entity';
 
 @Entity()
 export default class User extends BaseEntity {
-  @Column({ name: 'external_id', type: 'integer', default: 0 })
+  @Column({ type: 'integer', default: 0, name: 'external_id' })
   externalId: number;
 
   @Column({ type: 'varchar', length: 64 })
   username: string;
 
-  @Column({ name: 'first_name', type: 'varchar', length: 64 })
+  @Column({ type: 'varchar', length: 64, nullable: true, name: 'first_name' })
   firstName: string;
 
-  @Column({ name: 'last_name', type: 'varchar', length: 64 })
+  @Column({ type: 'varchar', length: 64, nullable: true, name: 'last_name' })
   lastName: string;
 
   @OneToMany(() => Subscription, (subscription) => subscription.id)
