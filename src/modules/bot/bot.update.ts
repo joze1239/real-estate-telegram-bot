@@ -1,18 +1,14 @@
-import { Command, Ctx, Help, Message, Start, Update } from 'nestjs-telegraf';
+import { Command, Ctx, Help, Message, Update } from 'nestjs-telegraf';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
 import { BotService } from './bot.service';
 
 @Update()
 export class BotUpdate {
   constructor(private botService: BotService) {}
-  @Start()
-  async start(@Ctx() ctx: TelegrafContext) {
-    await ctx.reply('Welcome');
-  }
 
   @Help()
   async help(@Ctx() ctx: TelegrafContext) {
-    await ctx.reply('Send me a sticker');
+    await ctx.reply('For help contact bot author!');
   }
 
   @Command('add')
@@ -21,9 +17,11 @@ export class BotUpdate {
     @Message('text') text: string,
   ) {
     const chatId = ctx.chat.id;
+    const user = ctx.from;
     const name = text.split(' ')[1];
     const url = text.split(' ')[2];
-    await this.botService.subscribe(chatId, name, url);
+
+    await this.botService.subscribe(chatId, user, name, url);
   }
 
   @Command('remove')

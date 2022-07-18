@@ -3,16 +3,19 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
+import { User as TelegrafUser } from 'telegraf/typings/core/types/typegram';
 import { TelegrafContext } from '~common/interfaces/telegraf-context.interface';
 import { CreateSubscriptionDto } from '~modules/subscription/dto/subscription.create.dto';
 import { RemoveSubscriptionDto } from '~modules/subscription/dto/subscription.remove.dto';
 import { SubscriptionService } from '~modules/subscription/subscription.service';
+import { UserService } from '~modules/user/user.service';
 
 @Injectable()
 export class BotService {
   constructor(
     @InjectBot() private bot: Telegraf<TelegrafContext>,
     private subscriptionService: SubscriptionService,
+    private userService: UserService,
   ) {}
 
   async sendMessage(chatId: number, message: string): Promise<void> {
@@ -32,9 +35,20 @@ export class BotService {
     await this.sendMessage(chatId, `Error: ${message}`);
   }
 
-  async subscribe(chatId: number, name: string, url: string): Promise<void> {
+  async subscribe(
+    chatId: number,
+    telegrafUser: TelegrafUser,
+    name: string,
+    url: string,
+  ): Promise<void> {
     try {
-      const dto = new CreateSubscriptionDto(chatId, name, url);
+      const user = await this.userService.findOrCreate({
+        externalId: telegrafUser.id,
+        username: telegrafUser.username,
+        firstName: telegrafUser.first_name,
+        lastName: telegrafUser.last_name,
+      });
+      const dto = new CreateSubscriptionDto(chatId, user, name, url);
       await this.subscriptionService.createSubscription(dto);
 
       await this.sendMessage(chatId, `Subscription added`);

@@ -6,6 +6,7 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { BotModule } from '~modules/bot/bot.module';
 import { PageViewModule } from '~modules/page-view/page-view.module';
 import { SubscriptionModule } from '~modules/subscription/subscription.module';
+import { UserModule } from '~modules/user/user.module';
 import { typeOrmConfigFactory, TYPEORM_CONFIG } from './typeorm.config';
 
 @Module({
@@ -26,6 +27,7 @@ import { typeOrmConfigFactory, TYPEORM_CONFIG } from './typeorm.config';
     SubscriptionModule,
     PageViewModule,
     BotModule,
+    UserModule,
   ],
 })
 export class AppModule {}
