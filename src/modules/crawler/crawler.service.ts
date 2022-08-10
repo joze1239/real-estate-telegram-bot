@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import cheerio from 'cheerio';
+import { getRandom } from 'random-useragent';
 import { websites } from './websites';
 
 @Injectable()
@@ -27,8 +28,7 @@ export class CrawlerService {
     elementSelector: string,
   ): Promise<string[]> {
     const headers = {
-      'user-agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+      'user-agent': getRandom(),
       'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
     };
     const res = await axios.get(url, {
