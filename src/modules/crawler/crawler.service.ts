@@ -22,7 +22,7 @@ export class CrawlerService {
     url: string,
     elementSelector: string,
   ): Promise<string[]> {
-    const res = await axios.get(url, { maxRedirects: 30 });
+    const res = await axios.get(url, { maxRedirects: 50 });
     const $ = cheerio.load(res.data);
     return $(elementSelector)
       .get()
