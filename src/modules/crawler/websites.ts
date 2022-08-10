@@ -12,4 +12,8 @@ export const websites: Website[] = [
     domain: 'https://www.bolha.com',
     linkSelector: '.content-main .EntityList--Regular .EntityList-item a.link',
   },
+  {
+    domain: 'https://www.avto.net',
+    linkSelector: '.GO-Results-Row a.stretched-link',
+  },
 ];
