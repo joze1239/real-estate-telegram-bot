@@ -13,6 +13,8 @@ import { UserService } from '~modules/user/user.service';
 
 @Injectable()
 export class BotService {
+  private readonly logger = new Logger(BotService.name);
+
   constructor(
     @InjectBot() private bot: Telegraf<TelegrafContext>,
     private subscriptionService: SubscriptionService,
@@ -108,7 +110,7 @@ export class BotService {
         await this.sendMessages(subscription.chatId, messages);
       }
     } catch (error) {
-      Logger.error(JSON.stringify(error));
+      this.logger.error(JSON.stringify(error));
     }
   }
 }
