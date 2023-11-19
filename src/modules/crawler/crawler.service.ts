@@ -24,7 +24,13 @@ export class CrawlerService {
   ): Promise<string[]> {
     this.logger.log(`Crawl URL: ${url}`);
 
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: {
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
+        'accept-language': 'en-GB,en;q=0.9,sl-SI;q=0.8,sl;q=0.7,hu;q=0.6',
+      },
+    });
     const $ = cheerio.load(res.data);
 
     return $(elementSelector)
