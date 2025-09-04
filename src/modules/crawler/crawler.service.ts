@@ -28,7 +28,6 @@ export class CrawlerService {
     this.logger.log(`Crawl URL: ${url}`);
 
     const html = await this.getPageHtml(url);
-    this.logger.log(`HTML (${url}):\n${html}`);
     const $ = cheerio.load(html);
 
     return $(elementSelector)
