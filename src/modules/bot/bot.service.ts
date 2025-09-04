@@ -10,6 +10,7 @@ import { RemoveSubscriptionDto } from '~modules/subscription/dto/subscription.re
 import { SubscriptionService } from '~modules/subscription/subscription.service';
 import { CreateUserDto } from '~modules/user/user.create.dto';
 import { UserService } from '~modules/user/user.service';
+import { sleep } from '~utils/sleep';
 
 @Injectable()
 export class BotService {
@@ -26,10 +27,12 @@ export class BotService {
   }
 
   async sendMessages(chatId: number, messages: string[]): Promise<void> {
+    // Telegram has rate limit of max 30 messages per second, but we don't want to hit the rate limit so we do 10 per second
     await PromisePool.withConcurrency(10)
       .for(messages)
       .process(async (message) => {
         await this.sendMessage(chatId, message);
+        sleep(1000);
       });
   }
 

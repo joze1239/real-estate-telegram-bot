@@ -28,6 +28,7 @@ export class CrawlerService {
     this.logger.log(`Crawl URL: ${url}`);
 
     const html = await this.getPageHtml(url);
+    this.logger.log(`HTML (${url}):\n${html}`);
     const $ = cheerio.load(html);
 
     return $(elementSelector)
@@ -61,7 +62,7 @@ export class CrawlerService {
           'an error occurred getting data, retrying in 1s...',
           e,
         );
-        await sleep(2_000);
+        await sleep(2000);
       }
     }
     await browser.close();
