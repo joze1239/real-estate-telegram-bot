@@ -100,7 +100,7 @@ export class BotService {
     }
   }
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  @Cron(CronExpression.EVERY_30_MINUTES)
   async crawlNewPages() {
     try {
       const subscriptions =
