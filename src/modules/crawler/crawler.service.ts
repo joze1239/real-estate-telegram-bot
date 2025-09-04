@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import axios from 'axios';
 import cheerio from 'cheerio';
+import { executablePath } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+
+import { sleep } from '~utils/sleep';
 import { websites } from './websites';
 
 @Injectable()
@@ -24,17 +27,45 @@ export class CrawlerService {
   ): Promise<string[]> {
     this.logger.log(`Crawl URL: ${url}`);
 
-    const res = await axios.get(url, {
-      headers: {
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
-        'accept-language': 'en-GB,en;q=0.9,sl-SI;q=0.8,sl;q=0.7,hu;q=0.6',
-      },
-    });
-    const $ = cheerio.load(res.data);
+    const html = await this.getPageHtml(url);
+    const $ = cheerio.load(html);
 
     return $(elementSelector)
       .get()
       .map((x) => $(x).attr('href'));
+  }
+
+  private async getPageHtml(url: string) {
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: executablePath(),
+      // ignoreHTTPSErrors: true,
+      args: ['--no-sandbox'],
+    });
+
+    let content = '';
+    for (let i = 0; i < 3; i++) {
+      try {
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle2' });
+        content = await page.content();
+        break;
+      } catch (e) {
+        // sometimes puppeteer timeouts in docker container so we have to retry to make it more reliable
+        if (i === 2) {
+          await browser.close();
+          throw e;
+        }
+        this.logger.warn(
+          url,
+          'an error occurred getting data, retrying in 1s...',
+          e,
+        );
+        await sleep(2_000);
+      }
+    }
+    await browser.close();
+
+    return content;
   }
 }
