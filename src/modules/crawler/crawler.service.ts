@@ -39,7 +39,7 @@ export class CrawlerService {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: executablePath(),
-      // ignoreHTTPSErrors: true,
+      acceptInsecureCerts: true,
       args: ['--no-sandbox'],
     });
 
