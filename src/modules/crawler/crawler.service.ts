@@ -43,12 +43,12 @@ export class CrawlerService {
       args: ['--no-sandbox'],
     });
 
-    let content = '';
+    let html = '';
     for (let i = 0; i < 3; i++) {
       try {
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
-        content = await page.content();
+        html = await page.content();
         break;
       } catch (e) {
         // sometimes puppeteer timeouts in docker container so we have to retry to make it more reliable
@@ -66,6 +66,6 @@ export class CrawlerService {
     }
     await browser.close();
 
-    return content;
+    return html;
   }
 }
