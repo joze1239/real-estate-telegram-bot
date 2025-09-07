@@ -43,7 +43,7 @@
     "json-typescript": "^1.1.2",
     "nestjs-telegraf": "^2.4.0",
     "pg": "^8.7.1",
-    "puppeteer": "^npm:rebrowser-puppeteer@^24.8.1",
+    "rebrowser-puppeteer": "^24.8.1",
     "reflect-metadata": "^0.1.13",
     "request-ip": "^2.1.3",
     "rimraf": "^3.0.2",

@@ -5019,10 +5019,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer-core@24.8.1:
+"puppeteer-core@npm:rebrowser-puppeteer-core@~24.8.1":
   version "24.8.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-24.8.1.tgz#20728f431f4ed2daba23515df1f1a586c663b4ba"
-  integrity sha512-UP/VIxVk/Akrgql3a55ZAIuAIx7+yQevz6qEXFUtSTIynEcgsCJ6tlRdi7uKAAlovmNQG4iNMzq9f8WxZLnGGg==
+  resolved "https://registry.yarnpkg.com/rebrowser-puppeteer-core/-/rebrowser-puppeteer-core-24.8.1.tgz#1302d9d145bbeb675857a21407dbb7713536c884"
+  integrity sha512-CifPf47KTG0jajTyn/dWpvf3kpW5W1QesURCWaUGzNTN8Kkki2IBUKJaMS+R+eNKhfv1JcsCZ5glYI0RAyJPTg==
   dependencies:
     "@puppeteer/browsers" "2.10.3"
     chromium-bidi "5.1.0"
@@ -5030,18 +5030,6 @@ puppeteer-core@24.8.1:
     devtools-protocol "0.0.1439962"
     typed-query-selector "^2.12.0"
     ws "^8.18.2"
-
-"puppeteer@^npm:rebrowser-puppeteer@^24.8.1":
-  version "24.8.1"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.8.1.tgz#820ecaec7a793ab5b8fa30269ae5e1b8e7c68cc8"
-  integrity sha512-5OvJCe6tQ09EWf35qqyoH/cr9YGMbLj0ZpoT2pEImF9Ox35JXyAn8kIqj8eBgpDfyzuEwXYIMUwIAIkdgO/gDA==
-  dependencies:
-    "@puppeteer/browsers" "2.10.3"
-    chromium-bidi "5.1.0"
-    cosmiconfig "^9.0.0"
-    devtools-protocol "0.0.1439962"
-    puppeteer-core "24.8.1"
-    typed-query-selector "^2.12.0"
 
 qs@6.7.0:
   version "6.7.0"
@@ -5130,6 +5118,18 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+rebrowser-puppeteer@^24.8.1:
+  version "24.8.1"
+  resolved "https://registry.yarnpkg.com/rebrowser-puppeteer/-/rebrowser-puppeteer-24.8.1.tgz#83a09b0fc5a5365f8e87f1a0a81b0e49a78121a0"
+  integrity sha512-FdFiin2n/zzWf+RTeQ8D3AhoSqtK284Kro7rrDqcYTyD+9KXvPPx6VP6vl0cF+adGIr1A1aMyhgHHPoWFvAybg==
+  dependencies:
+    "@puppeteer/browsers" "2.10.3"
+    chromium-bidi "5.1.0"
+    cosmiconfig "^9.0.0"
+    devtools-protocol "0.0.1439962"
+    puppeteer-core "npm:rebrowser-puppeteer-core@~24.8.1"
+    typed-query-selector "^2.12.0"
 
 rechoir@^0.6.2:
   version "0.6.2"

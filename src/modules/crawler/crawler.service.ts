@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
-import { executablePath } from 'puppeteer';
+import puppeteer, { executablePath } from 'rebrowser-puppeteer';
 
 import { sleep } from '~utils/sleep';
 import { websites } from './websites';
