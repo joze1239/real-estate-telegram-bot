@@ -59,6 +59,11 @@ export class SubscriptionService {
         urls: crawledUrls,
       },
     });
+
+    if (crawledUrls.length === 0) {
+      throw new Error(`Failed to crawl: ${subscription.url}`);
+    }
+
     const currentPageViews = await this.pageViewService.getViewedPages(
       subscription.chatId,
       crawledUrls,

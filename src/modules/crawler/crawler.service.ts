@@ -2,9 +2,12 @@ import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
 import { executablePath } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import { sleep } from '~utils/sleep';
 import { websites } from './websites';
+
+puppeteer.use(StealthPlugin());
 
 @Injectable()
 export class CrawlerService {
@@ -26,16 +29,8 @@ export class CrawlerService {
     elementSelector: string,
   ): Promise<string[]> {
     this.logger.log(`Crawl URL: ${url}`);
-
     const html = await this.getPageHtml(url);
     const $ = cheerio.load(html);
-
-    this.logger.log('Page crawled', {
-      extra: {
-        url,
-        html,
-      },
-    });
 
     return $(elementSelector)
       .get()
