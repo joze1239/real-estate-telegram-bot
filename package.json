@@ -24,7 +24,8 @@
     "db:migration:create": "yarn run typexorm:cli migration:create -n",
     "db:migration:generate": "yarn run typeorm:cli migration:generate -n",
     "db:migration:run": "yarn run typeorm:cli migration:run",
-    "db:migration:revert": "yarn run typeorm:cli migration:revert"
+    "db:migration:revert": "yarn run typeorm:cli migration:revert",
+    "postinstall": "yarn rebrowser-puppeteer browsers install chrome"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

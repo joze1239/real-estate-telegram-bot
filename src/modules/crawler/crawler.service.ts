@@ -36,8 +36,8 @@ export class CrawlerService {
   private async getPageHtml(url: string) {
     const browser = await puppeteer.launch({
       headless: true,
-      acceptInsecureCerts: true,
-      args: ['--no-sandbox'],
+      executablePath: '/usr/bin/google-chrome',
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
     let html = '';
