@@ -116,7 +116,7 @@ export class BotService {
         await this.sendMessages(subscription.chatId, messages);
       }
     } catch (error) {
-      this.logger.error(JSON.stringify(error));
+      this.logger.error(error.message);
     }
   }
 }
