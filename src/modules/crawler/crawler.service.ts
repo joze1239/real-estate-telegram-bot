@@ -30,6 +30,13 @@ export class CrawlerService {
     const html = await this.getPageHtml(url);
     const $ = cheerio.load(html);
 
+    this.logger.log('Page crawled', {
+      extra: {
+        url,
+        html,
+      },
+    });
+
     return $(elementSelector)
       .get()
       .map((x) => $(x).attr('href'));
