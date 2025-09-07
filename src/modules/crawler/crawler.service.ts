@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
-import { execSync } from 'child_process';
+import fs from 'fs';
 import puppeteer from 'rebrowser-puppeteer';
 
 import { sleep } from '~utils/sleep';
@@ -36,15 +36,26 @@ export class CrawlerService {
 
   private async getPageHtml(url: string) {
     try {
-      const chromium1 = execSync('which chromium').toString().trim();
-      const chromium2 = execSync('which chromium-browser').toString().trim();
-      const chromium3 = execSync('ls -l /usr/bin | grep chromium')
-        .toString()
-        .trim();
+      const paths = [
+        '/usr/bin/chromium',
+        '/usr/bin/chromium-browser',
+        '/usr/bin/chromium-browser-stable',
+      ];
 
-      this.logger.log('which chromium:', { extra: chromium1 });
-      this.logger.log('which chromium-browser:', { extra: chromium2 });
-      this.logger.log('ls /usr/bin | grep chromium:\n', { extra: chromium3 });
+      let chromiumPath = null;
+
+      for (const path of paths) {
+        if (fs.existsSync(path)) {
+          chromiumPath = path;
+          break;
+        }
+      }
+
+      if (!chromiumPath) {
+        console.error('Chromium not found in standard paths.');
+      } else {
+        console.log('Chromium found at:', chromiumPath);
+      }
     } catch (err) {
       this.logger.error(`Error checking chromium paths ${err.message}`);
     }
