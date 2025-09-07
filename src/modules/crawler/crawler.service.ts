@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
-import fs from 'fs';
 import puppeteer from 'rebrowser-puppeteer';
 
 import { sleep } from '~utils/sleep';
@@ -35,34 +34,8 @@ export class CrawlerService {
   }
 
   private async getPageHtml(url: string) {
-    try {
-      const paths = [
-        '/usr/bin/chromium',
-        '/usr/bin/chromium-browser',
-        '/usr/bin/chromium-browser-stable',
-      ];
-
-      let chromiumPath = null;
-
-      for (const path of paths) {
-        if (fs.existsSync(path)) {
-          chromiumPath = path;
-          break;
-        }
-      }
-
-      if (!chromiumPath) {
-        console.error('Chromium not found in standard paths.');
-      } else {
-        console.log('Chromium found at:', chromiumPath);
-      }
-    } catch (err) {
-      this.logger.error(`Error checking chromium paths ${err.message}`);
-    }
-
     const browser = await puppeteer.launch({
       headless: true,
-      executablePath: '/usr/bin/chromium-browser',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
