@@ -56,11 +56,11 @@ export class CrawlerService {
           await browser.close();
           throw e;
         }
-        this.logger.warn(
-          url,
-          'an error occurred getting data, retrying in 1s...',
-          e,
-        );
+        this.logger.warn('An error occurred getting data, retrying in 1s...', {
+          extra: {
+            url,
+          },
+        });
         await sleep(2000);
       }
     }

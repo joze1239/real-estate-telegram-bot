@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { validateOrReject } from 'class-validator';
 import { CrawlerService } from '~modules/crawler/crawler.service';
 import { CreatePageViewDto } from '~modules/page-view/dto/page-view.create.dto';
@@ -10,6 +10,8 @@ import { SubscriptionRepository } from './subscription.repository';
 
 @Injectable()
 export class SubscriptionService {
+  private readonly logger = new Logger(SubscriptionService.name);
+
   constructor(
     private readonly subscriptionRepository: SubscriptionRepository,
     private readonly pageViewService: PageViewService,
@@ -51,7 +53,12 @@ export class SubscriptionService {
       id,
     );
     const crawledUrls = await this.crawlerService.crawlPage(subscription.url);
-
+    this.logger.log('Crawl subscription page', {
+      extra: {
+        subscription_url: subscription.url,
+        urls: crawledUrls,
+      },
+    });
     const currentPageViews = await this.pageViewService.getViewedPages(
       subscription.chatId,
       crawledUrls,

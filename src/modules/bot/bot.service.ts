@@ -109,9 +109,12 @@ export class BotService {
         const newUrls = await this.subscriptionService.crawlSubscriptionPage(
           subscription.id,
         );
-        this.logger.log(
-          `New URLs (${subscription.url}): ${JSON.stringify(newUrls)}`,
-        );
+        this.logger.log('Crawl pages', {
+          extra: {
+            subscription_url: subscription.url,
+            urls: newUrls,
+          },
+        });
         const messages = newUrls.map((url) => `[${subscription.name}] ${url}`);
         await this.sendMessages(subscription.chatId, messages);
       }
