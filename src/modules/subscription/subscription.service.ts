@@ -61,7 +61,7 @@ export class SubscriptionService {
     });
 
     if (crawledUrls.length === 0) {
-      throw new Error(`Failed to crawl: ${subscription.url}`);
+      throw new Error(`Failed to crawl ${subscription.url}`);
     }
 
     const currentPageViews = await this.pageViewService.getViewedPages(

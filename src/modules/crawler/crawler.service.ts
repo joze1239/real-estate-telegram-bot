@@ -1,13 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
 import { executablePath } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import { sleep } from '~utils/sleep';
 import { websites } from './websites';
-
-puppeteer.use(StealthPlugin());
 
 @Injectable()
 export class CrawlerService {
