@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import cheerio from 'cheerio';
+import { execSync } from 'child_process';
 import puppeteer from 'rebrowser-puppeteer';
 
 import { sleep } from '~utils/sleep';
@@ -34,9 +35,23 @@ export class CrawlerService {
   }
 
   private async getPageHtml(url: string) {
+    try {
+      const chromium1 = execSync('which chromium').toString().trim();
+      const chromium2 = execSync('which chromium-browser').toString().trim();
+      const chromium3 = execSync('ls -l /usr/bin | grep chromium')
+        .toString()
+        .trim();
+
+      this.logger.log('which chromium:', { extra: chromium1 });
+      this.logger.log('which chromium-browser:', { extra: chromium2 });
+      this.logger.log('ls /usr/bin | grep chromium:\n', { extra: chromium3 });
+    } catch (err) {
+      this.logger.error(`Error checking chromium paths ${err.message}`);
+    }
+
     const browser = await puppeteer.launch({
       headless: true,
-      executablePath: '/usr/bin/chromium',
+      executablePath: '/usr/bin/chromium-browser',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
