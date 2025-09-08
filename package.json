@@ -7,8 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build:railway": "yarn install:chrome && yarn build",
-    "build": "yarn rebrowser-puppeteer browsers install chrome && nest build",
+    "build": "yarn install:chrome && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

@@ -102,10 +102,9 @@ export class BotService {
 
   @Cron(CronExpression.EVERY_30_MINUTES)
   async crawlNewPages() {
-    try {
-      const subscriptions =
-        await this.subscriptionService.getAllSubscriptions();
-      for (const subscription of subscriptions) {
+    const subscriptions = await this.subscriptionService.getAllSubscriptions();
+    for (const subscription of subscriptions) {
+      try {
         const newUrls = await this.subscriptionService.crawlSubscriptionPage(
           subscription.id,
         );
@@ -117,9 +116,9 @@ export class BotService {
         });
         const messages = newUrls.map((url) => `[${subscription.name}] ${url}`);
         await this.sendMessages(subscription.chatId, messages);
+      } catch (error) {
+        this.logger.error(error.message);
       }
-    } catch (error) {
-      this.logger.error(error.message);
     }
   }
 }
