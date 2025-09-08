@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import PromisePool from '@supercharge/promise-pool/dist';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
@@ -100,7 +100,8 @@ export class BotService {
     }
   }
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  // Every 30 minutes between 8:00 and 21:59.
+  @Cron('*/30 8-21 * * *')
   async crawlNewPages() {
     const subscriptions = await this.subscriptionService.getAllSubscriptions();
     for (const subscription of subscriptions) {
