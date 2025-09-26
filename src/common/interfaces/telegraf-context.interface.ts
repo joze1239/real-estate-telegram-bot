@@ -1,3 +1,3 @@
 import { Scenes } from 'telegraf';
 
-export interface TelegrafContext extends Scenes.SceneContext {}
+export type TelegrafContext = Scenes.SceneContext;

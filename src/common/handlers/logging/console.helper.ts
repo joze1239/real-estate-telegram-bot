@@ -20,7 +20,7 @@ export function niceRequestLogPrint({
   // eslint-disable-next-line no-console
   console.log(
     `${new Date().toISOString()} ${niceResponseCode} ${requestUrl} ${remoteIp} ${
-    userId || '-'
+      userId || '-'
     } ${requestId || '-'} ${responseTime ? `${responseTime}ms` : '-'}`,
   );
 }
@@ -51,7 +51,7 @@ export function niceEventLogPrint({
   // eslint-disable-next-line no-console
   console.log(
     `${new Date().toISOString()} ${resource || '-'} ${code} "${niceMessage}" ${
-    requestId || '-'
+      requestId || '-'
     }${niceExtra}`,
   );
 }
