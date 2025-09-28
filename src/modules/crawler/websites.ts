@@ -12,11 +12,11 @@ export const websites: Website[] = [
   {
     domain: 'https://www.nepremicnine.net',
     linkSelector: '.property-box a.url-title-d',
-    crawler: new SimpleCrawler(),
+    crawler: new ProxyCrawler(),
   },
   {
     domain: 'https://www.bolha.com',
     linkSelector: '.content-main .EntityList--Regular .EntityList-item a.link',
-    crawler: new ProxyCrawler(),
+    crawler: new SimpleCrawler(),
   },
 ];
